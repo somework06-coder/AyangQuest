@@ -23,17 +23,7 @@ export interface Game {
     createdAt: number;
 }
 
-export type GameState =
-    | 'INIT'
-    | 'INTRO'
-    | 'BATTLE_1'
-    | 'RUN_1'
-    | 'BATTLE_2'
-    | 'RUN_2'
-    | 'BATTLE_3'
+export type GameState = 'INIT' | 'INTRO' | 'BATTLE_1' | 'BATTLE_2' | 'BATTLE_3' | 'BATTLE_4' | 'BATTLE_5' | 'VICTORY' | 'GAME_OVER'
     | 'RUN_3'
-    | 'BATTLE_4'
     | 'RUN_4'
-    | 'BATTLE_5'
-    | 'WIN'
-    | 'END';
+    | 'WIN';

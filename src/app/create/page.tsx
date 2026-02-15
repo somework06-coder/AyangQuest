@@ -72,7 +72,8 @@ export default function CreatePage() {
         setMonsters(updated);
     };
 
-    const generateGame = () => {
+    const generateGame = async () => {
+        setLoading(true);
         const gameId = generateGameId();
         const game: Game = {
             id: gameId,
@@ -88,12 +89,22 @@ export default function CreatePage() {
         };
 
         try {
-            saveGame(game);
-            const link = `${window.location.origin}/play/${gameId}`;
-            setGeneratedLink(link);
-            setStep(5);
+            const success = await saveGame(game);
+            if (success) {
+                const link = `${window.location.origin}/play/${gameId}`;
+                setGeneratedLink(link);
+                setStep(5);
+                // Track game creation
+                import('@/lib/analytics').then(({ trackGameCreated }) => {
+                    trackGameCreated(gameId, creatorName);
+                });
+            } else {
+                alert('Gagal menyimpan game. Coba lagi ya!');
+            }
         } catch (error) {
             alert('Gagal menyimpan game! File gambar mungkin terlalu besar.');
+        } finally {
+            setLoading(false);
         }
     };
 

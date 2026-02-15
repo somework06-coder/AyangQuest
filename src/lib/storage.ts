@@ -1,7 +1,7 @@
 import { Game } from '@/types';
+import { supabase } from '@/lib/supabase';
 
-const STORAGE_KEY = 'ayang_quest_games';
-
+// Helper to generate concise ID
 export function generateGameId(): string {
     return Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
 }
@@ -42,53 +42,51 @@ export function compressImage(base64: string, maxWidth: number = 400): Promise<s
     });
 }
 
-export function saveGame(game: Game): void {
-    if (typeof window === 'undefined') return;
-
+// SAVE GAME TO SUPABASE
+export async function saveGame(game: Game): Promise<boolean> {
     try {
-        // Clear all old games first to prevent quota issues
-        localStorage.removeItem(STORAGE_KEY);
+        const { error } = await supabase
+            .from('games')
+            .upsert([{
+                id: game.id,
+                game_data: game
+            }]);
 
-        // Save only this game
-        const games: Record<string, Game> = {};
-        games[game.id] = game;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(games));
-    } catch (error) {
-        console.error('Failed to save game:', error);
-        // If still fails, try clearing everything and saving just the essentials
-        try {
-            localStorage.clear();
-            const minimalGames: Record<string, Game> = {};
-            minimalGames[game.id] = game;
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(minimalGames));
-        } catch {
-            alert('Gagal menyimpan game. Coba gunakan foto dengan ukuran lebih kecil.');
+        if (error) {
+            console.error('Error saving game:', error);
+            return false;
         }
+        return true;
+    } catch (e) {
+        console.error('Exception saving game:', e);
+        return false;
     }
 }
 
-export function getGame(id: string): Game | null {
-    if (typeof window === 'undefined') return null;
-
-    const games = getAllGames();
-    return games[id] || null;
-}
-
-export function getAllGames(): Record<string, Game> {
-    if (typeof window === 'undefined') return {};
-
+// GET GAME FROM SUPABASE
+export async function getGame(gameId: string): Promise<Game | null> {
     try {
-        const stored = localStorage.getItem(STORAGE_KEY);
-        return stored ? JSON.parse(stored) : {};
-    } catch {
-        return {};
+        const { data, error } = await supabase
+            .from('games')
+            .select('game_data')
+            .eq('id', gameId)
+            .single();
+
+        if (error || !data) {
+            console.warn('Game not found or error:', error);
+            return null;
+        }
+
+        return data.game_data as Game;
+    } catch (e) {
+        console.error('Exception fetching game:', e);
+        return null;
     }
 }
 
-export function normalizeAnswer(answer: string): string {
-    return answer.toLowerCase().trim();
-}
-
-export function checkAnswer(userAnswer: string, correctAnswer: string): boolean {
-    return normalizeAnswer(userAnswer) === normalizeAnswer(correctAnswer);
+// Check answer locally (still valid as we have the game object in memory)
+export function checkAnswer(game: Game, monsterIndex: number, answer: string): boolean {
+    const monster = game.monsters[monsterIndex];
+    if (!monster) return false;
+    return monster.answer.toLowerCase().trim() === answer.toLowerCase().trim();
 }

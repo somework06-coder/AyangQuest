@@ -34,6 +34,28 @@ export default function PlayPage() {
     const wrongRef = useRef<HTMLAudioElement | null>(null);
     const victoryRef = useRef<HTMLAudioElement | null>(null);
 
+    // ANALYTICS: Track Game Played
+    useEffect(() => {
+        if (gameId) {
+            import('@/lib/analytics').then(({ trackGamePlayed }) => {
+                trackGamePlayed(gameId);
+            });
+        }
+    }, [gameId]);
+
+    // ANALYTICS: Track Game Completion
+    useEffect(() => {
+        if (gameState === 'VICTORY') {
+            import('@/lib/analytics').then(({ trackGameCompleted }) => {
+                trackGameCompleted(gameId, true, attemptCount);
+            });
+        } else if (showGameOver && gameState.startsWith('BATTLE')) {
+            import('@/lib/analytics').then(({ trackGameCompleted }) => {
+                trackGameCompleted(gameId, false, attemptCount);
+            });
+        }
+    }, [gameState, showGameOver, gameId, attemptCount]);
+
     const handleRestart = () => {
         setGameState('INTRO');
         setCurrentMonster(0);
@@ -174,12 +196,17 @@ export default function PlayPage() {
     const knightRunSprite = game?.characterType === 'male' ? '/sprites/Knight-boy-run.png' : '/sprites/knight-run.png';
 
     useEffect(() => {
-        const loadedGame = getGame(gameId);
-        setGame(loadedGame);
-        setLoading(false);
-        if (loadedGame) {
-            setGameState('INTRO');
-        }
+        const loadGame = async () => {
+            const loadedGame = await getGame(gameId);
+            if (loadedGame) {
+                setGame(loadedGame);
+                setGameState('INTRO');
+            } else {
+                console.error('Game not found');
+            }
+            setLoading(false);
+        };
+        loadGame();
     }, [gameId]);
 
     // Handle Victory Music
@@ -229,7 +256,7 @@ export default function PlayPage() {
         const answer = option || userAnswer;
         if (!answer.trim()) return;
 
-        if (checkAnswer(answer, game!.monsters[currentMonster].answer)) {
+        if (checkAnswer(game!, currentMonster, answer)) {
             // Correct Answer
             setIsWrong(false);
             playSound(slashRef.current);
@@ -709,7 +736,7 @@ export default function PlayPage() {
     }
 
     // WIN Scene - Super Mario Style Victory
-    if (gameState === 'WIN' || gameState === 'END') {
+    if (gameState === 'VICTORY' || gameState === 'WIN') {
         return (
             <div className="h-dvh bg-gray-900 flex items-center justify-center overflow-hidden">
                 {/* Mobile Container */}
