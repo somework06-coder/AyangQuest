@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     creator: "@althur_somework",
   },
   icons: {
-    icon: '/favicon.ico',
+    icon: '/icon.png', // Next.js automatically handles icon.png in app directory
   },
 };
 
