@@ -72,10 +72,10 @@ export default function Home() {
           {/* Description Box */}
           <div className="max-w-xl mx-auto bg-white border-4 border-black p-6 shadow-[6px_6px_0px_#000] text-lg font-medium relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-2 bg-[var(--neo-pink)]"></div>
-            <p>
-              Tantang ayangmu jawab <span className="font-black bg-yellow-300 px-1 border-2 border-black">5 pertanyaan</span> buat dapetin hadiah spesial!
+            <p className="leading-relaxed">
+              Tantang ayangmu jawab <span className="font-black bg-yellow-300 px-2 py-0.5 border-2 border-black inline-block transform -rotate-1 mx-1">5 pertanyaan</span> buat dapetin hadiah spesial!
               <br />
-              <span className="text-sm text-gray-500 font-bold mt-2 block">(Dijamin makin sayang 100%)</span>
+              <span className="text-sm text-gray-500 font-bold mt-3 block">(Dijamin makin sayang 100%)</span>
             </p>
           </div>
 
