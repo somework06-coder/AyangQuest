@@ -31,9 +31,6 @@ export const metadata: Metadata = {
     description: "Bikin game petualangan lucu buat pasanganmu! Gratis, gampang, dan bikin baper.",
     creator: "@althur_somework",
   },
-  icons: {
-    icon: '/icon.png', // Next.js automatically handles icon.png in app directory
-  },
 };
 
 export default function RootLayout({
