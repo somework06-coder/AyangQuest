@@ -304,12 +304,6 @@ export default function CreatePage() {
                                 <p className="text-sm font-bold bg-yellow-200 inline-block px-2 border-2 border-black mb-2">
                                     Pastikan dia tau jawabannya ya!
                                 </p>
-                                <button
-                                    onClick={() => setShowQrisModal(true)}
-                                    className="block mx-auto mt-2 text-xs font-black text-white bg-gradient-to-r from-pink-500 to-purple-600 px-3 py-1.5 rounded-full border-2 border-black shadow-[2px_2px_0px_black] hover:scale-105 active:scale-95 transition-transform animate-bounce-slow"
-                                >
-                                    ☕ Support Creator
-                                </button>
                             </div>
 
                             <div className="space-y-6 max-h-[50vh] overflow-y-auto pr-2 custom-scrollbar">
