@@ -926,7 +926,8 @@ export default function PlayPage() {
                     </button>
                     <h3 className="text-xl font-black uppercase mb-2 text-black">Traktir Kopi ☕</h3>
                     <p className="text-sm font-bold text-gray-600 mb-4">
-                        Makasih udah main AyangQuest! Dukung terus karya lokal ya! :)
+                        Makasih udah nyoba AyangQuest! ✨<br />
+                        Bisa kali nyisihin dikit buat nambah-nambah biaya server hehe 💸
                     </p>
                     <div className="bg-gray-100 p-2 rounded-xl border-2 border-gray-200">
                         <img src="/qriscode.jpg" alt="QRIS" className="w-full h-auto rounded-lg" />
