@@ -10,6 +10,31 @@ export default function Home() {
         style={{ backgroundImage: 'radial-gradient(#000 2px, transparent 2px)', backgroundSize: '20px 20px' }}>
       </div>
 
+      {/* Structured Data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "AyangQuest",
+            "applicationCategory": "GameApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "IDR"
+            },
+            "description": "Game web bucin spesial buat ayang. Bikin pertanyaan, kasih tantangan, dan lihat reaksinya!",
+            "author": {
+              "@type": "Person",
+              "name": "Althur Somework",
+              "url": "https://www.threads.net/@althur_somework"
+            }
+          })
+        }}
+      />
+
       {/* Marquee Top */}
       <div className="bg-black text-white py-2 overflow-hidden border-b-4 border-black z-10">
         <div className="whitespace-nowrap animate-marquee flex gap-8 font-bold uppercase tracking-widest text-sm sm:text-base">
