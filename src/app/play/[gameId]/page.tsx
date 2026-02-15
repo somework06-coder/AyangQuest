@@ -853,13 +853,20 @@ export default function PlayPage() {
                                             >
                                                 {game.reward.value}
                                             </p>
+
+                                        {/* Screenshot Instruction */}
+                                        <div className="mt-4 flex justify-center">
+                                            <p className="text-[10px] sm:text-xs text-yellow-200 font-bold animate-pulse px-4 border border-yellow-400/50 rounded-full py-1 bg-black/20 inline-block">
+                                                📸 Silahkan screenshot dan tagih ke ayangnya ya!
+                                            </p>
+                                        </div>
                                         ) : (
-                                            <img
-                                                src={game.reward.value}
-                                                alt="Reward"
-                                                className="max-w-full h-24 object-contain rounded-lg mx-auto shadow-sm"
-                                                style={{ border: '1px solid #ffffff' }}
-                                            />
+                                        <img
+                                            src={game.reward.value}
+                                            alt="Reward"
+                                            className="max-w-full h-24 object-contain rounded-lg mx-auto shadow-sm"
+                                            style={{ border: '1px solid #ffffff' }}
+                                        />
                                         )}
                                     </div>
                                 </div>
