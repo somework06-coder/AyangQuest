@@ -922,8 +922,7 @@ export default function PlayPage() {
                                 {/* 4. Creator Footer */}
                                 {game.creatorName && (
                                     <div
-                                        className="flex items-center justify-center gap-3 pt-4 text-sm mt-2 cursor-pointer hover:opacity-80 transition-opacity"
-                                        onClick={() => setShowQrisModal(true)}
+                                        className="flex items-center justify-center gap-3 pt-4 text-sm mt-2 transition-opacity"
                                         style={{
                                             color: '#cccccc',
                                             borderTop: '1px solid #444444'
@@ -940,7 +939,7 @@ export default function PlayPage() {
                                                 style={{ border: '2px solid #ffffff' }}
                                             />
                                         )}
-                                        <span className="font-bold text-base hover:text-pink-400 transition-colors" style={{ color: '#ffffff' }}>altur.somework</span>
+                                        <span className="font-bold text-base transition-colors" style={{ color: '#ffffff' }}>{game.creatorName}</span>
                                     </div>
                                 )}
                             </div>
