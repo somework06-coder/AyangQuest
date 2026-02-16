@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, useCallback, useRef } from 'react';
+import NextImage from 'next/image';
 import { useParams } from 'next/navigation';
 import { Game, GameState } from '@/types';
 import { getGame, checkAnswer } from '@/lib/storage';
@@ -374,18 +375,22 @@ export default function PlayPage() {
                         <div className="bg-black/60 backdrop-blur-sm rounded-3xl p-6 text-center max-w-sm border-4 border-yellow-400 shadow-2xl">
                             {/* Knight Character */}
                             <div className="relative w-28 h-28 mx-auto mb-4">
-                                <img
+                                <NextImage
                                     src={knightSprite}
                                     alt="Knight"
+                                    width={112}
+                                    height={112}
                                     className="w-full h-full object-contain animate-bounce-soft pixelated -scale-x-100"
                                 />
                             </div>
 
                             {/* Player Avatar */}
                             <div className="relative w-24 h-24 mx-auto mb-4">
-                                <img
+                                <NextImage
                                     src={game.playerAvatar}
                                     alt={game.playerName}
+                                    width={96}
+                                    height={96}
                                     className="w-full h-full object-cover rounded-full border-4 border-yellow-400 shadow-lg"
                                 />
                             </div>
@@ -443,10 +448,15 @@ export default function PlayPage() {
                     {/* ===== TOP SECTION: Animation Area ===== */}
                     <div className="flex-1 relative">
                         {/* Background - positioned at bottom so ground shows */}
-                        <div
-                            className="absolute inset-0 bg-cover bg-bottom"
-                            style={{ backgroundImage: `url('${getBackground(currentMonster)}')` }}
-                        />
+                        <div className="absolute inset-0 z-0">
+                            <NextImage
+                                src={getBackground(currentMonster)}
+                                alt="Background"
+                                fill
+                                className="object-cover object-bottom"
+                                priority
+                            />
+                        </div>
 
                         {/* Ground */}
                         <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-green-800 to-green-600 border-t-4 border-green-400" />
@@ -492,9 +502,11 @@ export default function PlayPage() {
                             <div className="flex items-end justify-center gap-8 px-4">
                                 {/* Player Knight - on ground */}
                                 <div className={`relative ${showMonsterAttack ? 'grayscale brightness-50' : ''} transition-all duration-200`}>
-                                    <img
+                                    <NextImage
                                         src={knightSprite}
                                         alt="Knight"
+                                        width={144}
+                                        height={144}
                                         className="w-28 h-28 sm:w-36 sm:h-36 object-contain pixelated animate-bounce-soft -scale-x-100"
                                     />
                                     {/* Player Face */}
@@ -533,6 +545,9 @@ export default function PlayPage() {
                                         </div>
                                     )}
 
+
+
+                                    {/* Monster sprite */}
                                     {/* Victory Message */}
                                     {showMonsterDefeat && (
                                         <div className="absolute -top-24 left-1/2 -translate-x-1/2 bg-green-500 text-white px-4 py-2 rounded-xl shadow-xl animate-fade-in z-20 whitespace-nowrap">
@@ -542,9 +557,11 @@ export default function PlayPage() {
 
                                     {/* Monster sprite */}
                                     <div className={`transition-all duration-500 ${showMonsterDefeat ? 'animate-monster-defeat' : 'animate-monster-idle'}`}>
-                                        <img
+                                        <NextImage
                                             src={monsterSprites[currentMonster]}
                                             alt={monsterNames[currentMonster]}
+                                            width={144}
+                                            height={144}
                                             className={`w-28 h-28 sm:w-36 sm:h-36 object-contain pixelated ${currentMonster === 4 ? '-scale-x-100' : ''}`}
                                         />
                                     </div>
@@ -890,9 +907,11 @@ export default function PlayPage() {
                                                 </div>
                                             </>
                                         ) : (
-                                            <img
+                                            <NextImage
                                                 src={game.reward.value}
                                                 alt="Reward"
+                                                width={300}
+                                                height={200}
                                                 className="max-w-full h-24 object-contain rounded-lg mx-auto shadow-sm"
                                                 style={{ border: '1px solid #ffffff' }}
                                             />
@@ -912,9 +931,11 @@ export default function PlayPage() {
                                     >
                                         <span>Dibuat dengan ❤️ oleh</span>
                                         {game.creatorAvatar && (
-                                            <img
+                                            <NextImage
                                                 src={game.creatorAvatar}
                                                 alt={game.creatorName}
+                                                width={40}
+                                                height={40}
                                                 className="w-10 h-10 rounded-full object-cover"
                                                 style={{ border: '2px solid #ffffff' }}
                                             />
@@ -957,7 +978,7 @@ export default function PlayPage() {
                         Bisa kali nyisihin dikit buat nambah-nambah biaya server hehe 💸
                     </p>
                     <div className="bg-gray-100 p-2 rounded-xl border-2 border-gray-200">
-                        <img src="/qriscode.jpg" alt="QRIS" className="w-full h-auto rounded-lg" />
+                        <NextImage src="/qriscode.jpg" alt="QRIS" width={300} height={300} className="w-full h-auto rounded-lg" />
                     </div>
                     <p className="text-xs font-bold text-gray-400 mt-2">Scan pake GoPay, OVO, Dana, dll.</p>
                     <a

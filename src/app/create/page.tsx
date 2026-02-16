@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import NextImage from 'next/image';
 import { Game, Monster, Reward } from '@/types';
 import { generateGameId, saveGame } from '@/lib/storage';
 
@@ -29,7 +30,7 @@ export default function CreatePage() {
         return new Promise((resolve) => {
             const reader = new FileReader();
             reader.onload = (e) => {
-                const img = new Image();
+                const img = new window.Image();
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
                     let width = img.width;
@@ -255,7 +256,7 @@ export default function CreatePage() {
                                         onClick={() => setCharacterType('female')}
                                         className={`p-2 border-4 transition-all ${characterType === 'female' ? 'bg-pink-200 border-black shadow-[4px_4px_0px_black]' : 'border-transparent hover:bg-gray-100'}`}
                                     >
-                                        <img src="/sprites/knight.png" alt="Female" className="h-20 mx-auto pixelated" />
+                                        <NextImage src="/sprites/knight.png" alt="Female" width={80} height={80} className="h-20 w-auto mx-auto pixelated" />
                                         <span className="block font-bold text-sm mt-1">Cewek</span>
                                     </button>
                                     <button
@@ -263,7 +264,7 @@ export default function CreatePage() {
                                         onClick={() => setCharacterType('male')}
                                         className={`p-2 border-4 transition-all ${characterType === 'male' ? 'bg-blue-200 border-black shadow-[4px_4px_0px_black]' : 'border-transparent hover:bg-gray-100'}`}
                                     >
-                                        <img src="/sprites/Knight-boy.png" alt="Male" className="h-20 mx-auto pixelated" />
+                                        <NextImage src="/sprites/Knight-boy.png" alt="Male" width={80} height={80} className="h-20 w-auto mx-auto pixelated" />
                                         <span className="block font-bold text-sm mt-1">Cowok</span>
                                     </button>
                                 </div>
