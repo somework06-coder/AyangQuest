@@ -35,27 +35,8 @@ export default function PlayPage() {
     const wrongRef = useRef<HTMLAudioElement | null>(null);
     const victoryRef = useRef<HTMLAudioElement | null>(null);
 
-    // ANALYTICS: Track Game Played
-    useEffect(() => {
-        if (gameId) {
-            import('@/lib/analytics').then(({ trackGamePlayed }) => {
-                trackGamePlayed(gameId);
-            });
-        }
-    }, [gameId]);
 
-    // ANALYTICS: Track Game Completion
-    useEffect(() => {
-        if (gameState === 'VICTORY') {
-            import('@/lib/analytics').then(({ trackGameCompleted }) => {
-                trackGameCompleted(gameId, true, attemptCount);
-            });
-        } else if (showGameOver && gameState.startsWith('BATTLE')) {
-            import('@/lib/analytics').then(({ trackGameCompleted }) => {
-                trackGameCompleted(gameId, false, attemptCount);
-            });
-        }
-    }, [gameState, showGameOver, gameId, attemptCount]);
+
 
     const handleRestart = () => {
         setGameState('INTRO');
@@ -67,13 +48,15 @@ export default function PlayPage() {
         setShowSlash(false);
         setShowGameOver(false);
         setShowMonsterAttack(false);
-        setAttemptCount(prev => prev + 1); // Increment attempt count on restart
+        setAttemptCount(prev => prev + 1);
         // Reset audio
         if (bgmRef.current) {
             bgmRef.current.currentTime = 0;
             bgmRef.current.play().catch(() => { });
         }
     };
+
+
 
     useEffect(() => {
         // Initialize Audio
@@ -365,7 +348,13 @@ export default function PlayPage() {
                     />
 
                     {/* Ground */}
-                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-green-800 to-green-600 border-t-4 border-green-400" />
+                    <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-green-800 to-green-600 border-t-4 border-green-400 flex items-end justify-center pb-2">
+                        <div className="bg-yellow-400/90 border-2 border-yellow-600 px-3 py-1 rounded-full shadow-sm mb-2 relative z-20">
+                            <p className="text-[10px] font-bold text-yellow-900 leading-none tracking-wide">
+                                By www.ayangquest.web.id
+                            </p>
+                        </div>
+                    </div>
                     <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-r from-amber-700 via-amber-600 to-amber-700" style={{
                         backgroundImage: 'repeating-linear-gradient(90deg, #92400e 0px, #92400e 40px, #78350f 40px, #78350f 80px)'
                     }} />
@@ -459,7 +448,13 @@ export default function PlayPage() {
                         </div>
 
                         {/* Ground */}
-                        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-green-800 to-green-600 border-t-4 border-green-400" />
+                        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-green-800 to-green-600 border-t-4 border-green-400 flex items-center justify-center">
+                            <div className="bg-yellow-400/90 border-2 border-yellow-600 px-3 py-1 rounded-full shadow-sm transform translate-y-2">
+                                <p className="text-[10px] font-bold text-yellow-900 leading-none tracking-wide">
+                                    By www.ayangquest.web.id
+                                </p>
+                            </div>
+                        </div>
 
                         {/* Stage Progress - Top */}
                         <div className="absolute top-8 left-0 right-0 z-20 px-4">
@@ -691,7 +686,13 @@ export default function PlayPage() {
                         />
 
                         {/* Ground */}
-                        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-green-800 to-green-600 border-t-4 border-green-400" />
+                        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-green-800 to-green-600 border-t-4 border-green-400 flex items-center justify-center">
+                            <div className="bg-yellow-400/90 border-2 border-yellow-600 px-3 py-1 rounded-full shadow-sm transform translate-y-2">
+                                <p className="text-[10px] font-bold text-yellow-900 leading-none tracking-wide">
+                                    By www.ayangquest.web.id
+                                </p>
+                            </div>
+                        </div>
 
                         {/* Stage Progress - Top */}
                         <div className="absolute top-8 left-0 right-0 z-20 px-4">
