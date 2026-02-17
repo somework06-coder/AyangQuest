@@ -563,6 +563,7 @@ export default function PlayPage() {
                                             width={144}
                                             height={144}
                                             className={`w-28 h-28 sm:w-36 sm:h-36 object-contain pixelated ${currentMonster === 4 ? '-scale-x-100' : ''}`}
+                                            priority
                                         />
                                     </div>
 
